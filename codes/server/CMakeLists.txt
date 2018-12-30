@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.13)
+project(HAR)
+
+set(CMAKE_CXX_STANDARD 17)
+
+add_executable(HAR main.cpp entity/order/order.cpp entity/order/order.h entity/order/orderstate.h entity/order/orderunreceivedstate.cpp entity/order/orderunreceivedstate.h entity/order/orderreceivedstate.cpp entity/order/orderreceivedstate.h entity/order/orderstartrepairstate.cpp entity/order/orderstartrepairstate.h entity/order/orderendrepairstate.cpp entity/order/orderendrepairstate.h entity/order/evaluate.cpp entity/order/evaluate.h entity/usermanagesystem.cpp entity/usermanagesystem.h entity/accountonlinemanager.cpp entity/accountonlinemanager.h entity/register.cpp entity/register.h entity/ordermanagesystem.cpp entity/ordermanagesystem.h entity/createorder.cpp entity/createorder.h entity/trackorder.cpp entity/trackorder.h entity/order/orderpricerange.cpp entity/order/orderpricerange.h entity/order/orderfinishedstate.cpp entity/order/orderfinishedstate.h entity/addressinformation.cpp entity/addressinformation.h entity/customeraccount.cpp entity/customeraccount.h entity/merchantaccount.cpp entity/merchantaccount.h entity/merchantservertype.cpp entity/merchantservertype.h entity/user.cpp entity/user.h)

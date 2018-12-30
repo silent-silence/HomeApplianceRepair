@@ -4,6 +4,4 @@
 
 MerchantAccount::MerchantAccount()
     :User{}
-{
-
-}
+{}
