@@ -4,7 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 LIBS += -lboost_system \
-        -lpthread
+        -lpthread \
+        -L/usr/local/mariadb/mariadb-connector-c/lib/mariadb -lmariadb
+
+INCLUDEPATH += /usr/local/mariadb/mariadb-connector-c/include
 
 SOURCES += \
         main.cpp \
@@ -21,7 +24,11 @@ SOURCES += \
     entity/order/orderendrepairstate.cpp \
     entity/order/orderunreceivedstate.cpp \
     entity/order/orderreceivedstate.cpp \
-    entity/order/orderfinishedstate.cpp
+    entity/order/orderfinishedstate.cpp \
+    database/databaseconnection.cpp \
+    database/queryresult.cpp \
+    database/orderfactory.cpp \
+    database/orderstatefactory.cpp
 
 HEADERS += \
     network/networkserver.h \
@@ -38,4 +45,9 @@ HEADERS += \
     entity/order/orderpricerange.h \
     entity/order/orderendrepairstate.h \
     entity/order/orderunreceivedstate.h \
-    entity/order/orderreceivedstate.h
+    entity/order/orderreceivedstate.h \
+    database/orderfactory.h \
+    database/orderstatefactory.h\
+    database/databaseconnection.h \
+    database/orderstateconstructorparameters.h \
+    database/queryresult.h

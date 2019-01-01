@@ -1,5 +1,6 @@
 #include "order.h"
 #include "orderunreceivedstate.h"
+#include "../../database/orderstatefactory.h"
 #include <stdexcept>
 
 using std::make_shared;				using std::runtime_error;
@@ -8,23 +9,11 @@ Order::Order(AddressInformation address, std::string detail, unsigned long int i
 	: m_address{address}, m_detail{detail}, m_id{id}
 {}
 
-void Order::loadStates(std::shared_ptr<OrderState> current, std::shared_ptr<OrderState> unreceived,
-					   std::shared_ptr<OrderState> received, std::shared_ptr<OrderState> startRepair,
-					   std::shared_ptr<OrderState> endRepair, std::shared_ptr<OrderState> finished)
-{
-	m_currentState = std::move(current);
-	m_unreceivedState = std::move(unreceived);
-	m_receivedState = std::move(received);
-	m_startRepairState = std::move(startRepair);
-	m_endRepairState = std::move(endRepair);
-	m_finishedState = std::move(finished);
-}
-
-void Order::publishTheOrder(OrderPriceRange range)
+void Order::orderInitState(OrderPriceRange range)
 {
 	if(m_unreceivedState)
-		throw runtime_error("Can not publish an order twice");
-	m_currentState = make_shared<OrderUnreceivedState>(shared_from_this(), range);
+		throw runtime_error("Can not init an order state twice");
+	m_unreceivedState = m_currentState = make_shared<OrderUnreceivedState>(weak_from_this(), range);
 }
 
 void Order::receivedBy(std::weak_ptr<MerchantAccount> receiver)
@@ -93,6 +82,11 @@ std::chrono::system_clock::time_point Order::endRepairDate()
 	if(!m_endRepairState)
 		throw runtime_error("The order not passing end repair state");
 	return m_endRepairState->date();
+}
+
+unsigned long int Order::id() const
+{
+	return m_id;
 }
 
 void Order::setState(std::shared_ptr<OrderState> state)

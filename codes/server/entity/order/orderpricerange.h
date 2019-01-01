@@ -4,7 +4,7 @@
 
 class OrderPriceRange {
 public:
-	OrderPriceRange(double low, double high);
+	OrderPriceRange(double low = 0, double high = 0);
 
 	void setPriceLow(double low);
 	void setPriceHigh(double high);

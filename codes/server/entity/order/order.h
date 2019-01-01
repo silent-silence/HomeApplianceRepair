@@ -18,14 +18,10 @@ class Order : public std::enable_shared_from_this<Order> {
 	friend class OrderStartRepairState;
 	friend class OrderEndRepairState;
 	friend class OrderFinishedState;
+	friend class OrderFactory;
+	friend class OrderStateFactory;
 public:
 	Order(AddressInformation address, std::string detail, unsigned long int id);
-
-	void loadStates(std::shared_ptr<OrderState> current, std::shared_ptr<OrderState> unreceived,
-		std::shared_ptr<OrderState> received, std::shared_ptr<OrderState> startRepair,
-		std::shared_ptr<OrderState> endRepair, std::shared_ptr<OrderState> finished);
-
-	void publishTheOrder(OrderPriceRange range);
 
 	void receivedBy(std::weak_ptr<MerchantAccount> receiver);
 	void startRepair();
@@ -40,7 +36,10 @@ public:
 	std::chrono::system_clock::time_point startRepairDate();
 	std::chrono::system_clock::time_point endRepairDate();
 
+	unsigned long int id() const;
+
 private:
+	void orderInitState(OrderPriceRange range);
 	void setState(std::shared_ptr<OrderState> state);
 
 	std::shared_ptr<OrderState> m_unreceivedState;
