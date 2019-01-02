@@ -7,17 +7,16 @@
 #include "../entity/order/orderpricerange.h"
 
 class Order;
-class OrderStateFactory;
+class OrderStateAbstractFactory;
+class OrderState;
 
 class OrderFactory {
 public:
-	OrderFactory();
-
 	std::shared_ptr<Order> readOrder(unsigned long orderId);
 	std::shared_ptr<Order> createOrder(AddressInformation address, std::string detail, unsigned long id, OrderPriceRange range);
 
 private:
-	std::shared_ptr<OrderStateFactory> m_stateFactory;
+	std::shared_ptr<OrderState> getStates(std::shared_ptr<Order> &order, unsigned long stateId, unsigned call = 0);
 };
 
 #endif //HAR_ORDERFACTORY_H

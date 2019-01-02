@@ -3,7 +3,7 @@
 //
 
 #include "orderfactory.h"
-#include "orderstatefactory.h"
+#include "orderstateabstractfactory.h"
 #include "databaseconnection.h"
 #include "../entity/order/order.h"
 #include "../entity/order/orderstate.h"
@@ -12,17 +12,12 @@
 using std::make_shared;			using std::get;
 using std::shared_ptr;
 
-OrderFactory::OrderFactory()
-{
-	m_stateFactory = make_shared<OrderStateFactory>();
-}
-
 std::shared_ptr<Order> OrderFactory::readOrder(unsigned long orderId)
 {
 	auto orderInfo = DatabaseConnection::getInstance().queryOrderById(orderId);
 	shared_ptr<Order> newOrder = make_shared<Order>(get<0>(orderInfo), get<1>(orderInfo), get<2>(orderInfo));
 
-	m_stateFactory->readStatesForOrder(newOrder);
+	newOrder->m_currentState = getStates(newOrder, get<3>(orderInfo));
 
 	return newOrder;
 }
@@ -32,4 +27,20 @@ std::shared_ptr<Order> OrderFactory::createOrder(AddressInformation address, std
 	shared_ptr<Order> newOrder = make_shared<Order>(address, detail, id);
 	newOrder->orderInitState(range);
 	return newOrder;
+}
+
+std::shared_ptr<OrderState> OrderFactory::getStates(shared_ptr<Order> &order, unsigned long lastStateId, unsigned call)
+{
+	std::tuple<std::shared_ptr<OrderStateAbstractFactory>, OrderStateParameters> stateInfo;
+	if(call == 0)
+		stateInfo = DatabaseConnection::getInstance().queryOrderStateByOrderIdAndStateId(order->id(), lastStateId);
+	else
+		stateInfo = DatabaseConnection::getInstance().queryOrderStateByOrderIdAndLastStateId(order->id(), lastStateId);
+
+	shared_ptr<OrderStateAbstractFactory> stateFactory = get<0>(stateInfo);
+	OrderStateParameters parameters = get<1>(stateInfo);
+	if(parameters.lastStateId != 0)
+		parameters.lastState = getStates(order, parameters.lastStateId);
+
+	return stateFactory ? stateFactory->readStateForOrder(order, parameters) : nullptr;
 }

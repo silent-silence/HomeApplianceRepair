@@ -6,15 +6,14 @@
 #define HAR_ORDERSTATEFACTORY_H
 
 #include <memory>
-#include "../entity/order/orderpricerange.h"
+#include "orderstateparameters.h"
 
 class OrderState;
 class Order;
-class MerchantAccount;
 
-class OrderStateFactory {
+class OrderStateAbstractFactory {
 public:
-	std::shared_ptr<OrderState> readStatesForOrder(std::weak_ptr<Order> order, unsigned long nextState = 0);
+	virtual std::shared_ptr<OrderState> readStateForOrder(std::weak_ptr<Order> order, OrderStateParameters &parameters) = 0;
 };
 
 #endif //HAR_ORDERSTATEFACTORY_H

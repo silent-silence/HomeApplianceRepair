@@ -8,6 +8,7 @@ class Order;
 class OrderStartRepairState : public OrderState, public std::enable_shared_from_this<OrderStartRepairState> {
 public:
 	OrderStartRepairState(std::weak_ptr<Order> order, std::weak_ptr<OrderState> lastState);
+	OrderStartRepairState(std::weak_ptr<Order> order, std::weak_ptr<OrderState> lastState, std::chrono::system_clock::time_point date);
 
 	void receivedBy(std::weak_ptr<MerchantAccount> receiver) override;
 	void startRepair() override;

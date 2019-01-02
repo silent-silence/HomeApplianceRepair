@@ -3,26 +3,32 @@
 
 #include <mariadb/mysql.h>
 #include <tuple>
+#include <chrono>
+#include <memory>
 
 class AddressInformation;
-class OrderStateConstructorParameters;
+class OrderStateParameters;
+class OrderStateAbstractFactory;
 
 class DatabaseConnection {
 public:
 	static DatabaseConnection &getInstance();
 
 	//void test();
-	std::tuple<AddressInformation, std::string, unsigned long> queryOrderById(unsigned long orderId);
+	/* 1 std::string for detail
+	 * 2 unsigned long for order id
+	 * 3 unsigned long for order state id
+	 */
+	std::tuple<AddressInformation, std::string, unsigned long, unsigned long> queryOrderById(unsigned long orderId);
 
 	/* in std::tuple<std::string, bool>
-	 * 0 std::string for order type
-	 * 1 bool for whether the order state has a last state
-	 * 2 unsigned int for order state id
+	 * 0 std::shared_ptr<OrderStateAbstractFactory> for state factory
+	 * 1 OrderStateParameters for detail state information
 	 */
-	std::tuple<std::string, bool, unsigned int, OrderStateConstructorParameters>
-		queryOrderStateByOrderId(unsigned long orderId);
-	std::tuple<std::string, bool, unsigned int, OrderStateConstructorParameters>
-		queryOrderStateByOrderIdAndNextState(unsigned long orderId, unsigned nextState);
+	std::tuple<std::shared_ptr<OrderStateAbstractFactory>, OrderStateParameters>
+		queryOrderStateByOrderIdAndStateId(unsigned long orderId, unsigned long stateId);
+	std::tuple<std::shared_ptr<OrderStateAbstractFactory>, OrderStateParameters>
+		queryOrderStateByOrderIdAndLastStateId(unsigned long orderId, unsigned long lastState);
 
 private:
 	DatabaseConnection();
@@ -33,8 +39,9 @@ private:
 
 	unsigned long toUnsignedLong(std::string str);
 	double toDouble(std::string str);
+	std::chrono::system_clock::time_point toTimePoint(std::string str);
+	std::shared_ptr<OrderStateAbstractFactory> findFactory(std::string orderType);
 
-	static DatabaseConnection m_instance;
 	static MYSQL *m_mysqlConnection;
 };
 

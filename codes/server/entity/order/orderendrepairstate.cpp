@@ -5,11 +5,15 @@
 using std::chrono::system_clock;		using std::runtime_error;
 using std::make_shared;
 
-OrderEndRepairState::OrderEndRepairState(std::weak_ptr<Order> order, double transactionPrice, std::weak_ptr<OrderState> lastState)
-		: m_order{order}, m_transaction{transactionPrice}, m_lastState{lastState}
+OrderEndRepairState::OrderEndRepairState(std::weak_ptr<Order> order, std::weak_ptr<OrderState> lastState, double transactionPrice)
+		: m_order{std::move(order)}, m_transaction{transactionPrice}, m_lastState{std::move(lastState)}
 {
 	m_stateChangeDate = system_clock::now();
 }
+
+OrderEndRepairState::OrderEndRepairState(std::weak_ptr<Order> order, std::weak_ptr<OrderState> lastState, double transactionPrice, Evaluate evaluate, std::chrono::system_clock::time_point date)
+	: m_order{std::move(order)}, m_transaction{transactionPrice}, m_lastState{std::move(lastState)}, m_evaluate{evaluate}, m_stateChangeDate{date}
+{}
 
 void OrderEndRepairState::receivedBy(std::weak_ptr<MerchantAccount> receiver)
 {

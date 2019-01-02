@@ -19,7 +19,11 @@ class Order : public std::enable_shared_from_this<Order> {
 	friend class OrderEndRepairState;
 	friend class OrderFinishedState;
 	friend class OrderFactory;
-	friend class OrderStateFactory;
+	friend class OrderUnreceivedStateFactory;
+	friend class OrderReceivedStateFactory;
+	friend class OrderStartRepairStateFactory;
+	friend class OrderEndRepairStateFactory;
+	friend class OrderFinishedStateFactory;
 public:
 	Order(AddressInformation address, std::string detail, unsigned long int id);
 

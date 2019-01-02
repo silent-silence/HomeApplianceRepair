@@ -6,11 +6,15 @@
 using std::chrono::system_clock;		using std::runtime_error;
 using std::make_shared;
 
-OrderReceivedState::OrderReceivedState(std::weak_ptr<Order> order, std::weak_ptr<MerchantAccount> receiver, std::weak_ptr<OrderState> lastState)
-	: m_order{order}, m_receiver{receiver}, m_lastState{lastState}
+OrderReceivedState::OrderReceivedState(std::weak_ptr<Order> order, std::weak_ptr<OrderState> lastState, std::weak_ptr<MerchantAccount> receiver)
+	: m_order{std::move(order)}, m_receiver{std::move(receiver)}, m_lastState{std::move(lastState)}
 {
 	m_stateChangeDate = system_clock::now();
 }
+
+OrderReceivedState::OrderReceivedState(std::weak_ptr<Order> order, std::weak_ptr<OrderState> lastState, std::weak_ptr<MerchantAccount> receiver, std::chrono::system_clock::time_point date)
+	: m_order{std::move(order)}, m_receiver{std::move(receiver)}, m_lastState{std::move(lastState)}, m_stateChangeDate{date}
+{}
 
 void OrderReceivedState::receivedBy(std::weak_ptr<MerchantAccount> receiver)
 {

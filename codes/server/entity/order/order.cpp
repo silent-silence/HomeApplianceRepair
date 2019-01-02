@@ -1,6 +1,6 @@
 #include "order.h"
 #include "orderunreceivedstate.h"
-#include "../../database/orderstatefactory.h"
+#include "../../database/orderstateabstractfactory.h"
 #include <stdexcept>
 
 using std::make_shared;				using std::runtime_error;

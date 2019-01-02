@@ -12,18 +12,19 @@ using std::cout;
 int main()
 {
 	OrderFactory factory;
-	shared_ptr<Order> o = factory.createOrder(AddressInformation(), "detail", 123456789, OrderPriceRange(12, 54));
+	//shared_ptr<Order> o = factory.createOrder(AddressInformation(), "detail", 123456789, OrderPriceRange(12, 54));
+	shared_ptr<Order> o = factory.readOrder(1234);
 
-	o->receivedBy(make_shared<MerchantAccount>());
+	/*o->receivedBy(make_shared<MerchantAccount>());
 	o->startRepair();
 	o->endRepair(43);
 	Evaluate eva;
 	o->setEvaluate(eva);
-	o->orderFinished();
+	o->orderFinished();*/
 
 	cout << o->priceRange().priceLow() << " " << o->priceRange().priceHigh() << '\n';
 	cout << o->transaction() << '\n';
-	eva = o->evaluate();
+	Evaluate eva = o->evaluate();
 
 	return 0;
 }
