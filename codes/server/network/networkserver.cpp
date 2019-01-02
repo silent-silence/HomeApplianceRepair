@@ -1,35 +1,63 @@
 #include "networkserver.h"
+#include "networkconnection.h"
+#include "datashunt.h"
 #include <boost/bind.hpp>
 #include <iostream>
 
 using std::cout;
 using std::endl;
+using std::pair;
 using std::shared_ptr;
-using std::weak_ptr;
 using std::make_shared;
+
+using boost::bind;
 using boost::asio::ip::tcp;
 using boost::asio::io_service;
-using boost::bind;
+using boost::asio::ip::address;
+using boost::system::error_code;
+using boost::asio::placeholders::error;
 
-NetworkServer::NetworkServer()
+NetworkServer::NetworkServer(std::shared_ptr<DataShunt> &shunt)
+    :io_service()
 {
-    m_io=make_shared<io_service>();
-    m_acceptor=make_shared<tcp::acceptor>(*m_io, tcp::endpoint(tcp::v4(), 1234));
-
-    weak_ptr<tcp::socket> socket;
-    accept(socket);
-
-    m_io->run();
+    _dataShunt=shunt;
+    setAcceptor(make_shared<tcp::acceptor>(*this, tcp::endpoint(tcp::v4(), PORT)));
 }
 
-void NetworkServer::accept(weak_ptr<tcp::socket> conn)
+void NetworkServer::start()
 {
-    if(conn.use_count()!=0){
-        m_connects.push_back(conn.lock());
-        cout<<"Client:"<<conn.lock()->remote_endpoint().address()<<endl;
-        cout<<"Server:"<<conn.lock()->local_endpoint().address()<<endl;
-        cout<<"Count:"<<m_connects.size()<<endl;
+    handle_acceptor();
+    run();
+}
+
+void NetworkServer::end()
+{
+
+}
+
+void NetworkServer::handle_acceptor()
+{
+    auto conn=NetworkConnection::create(*this, _dataShunt);
+    acceptor()->async_accept(conn->socket(), bind(&NetworkServer::handle_wait_acceptor, this, error, conn));
+}
+
+void NetworkServer::handle_wait_acceptor(const error_code &ec, const shared_ptr<NetworkConnection> &conn)
+{
+    if(!ec){
+        conn->start();
+        handle_acceptor();
     }
-    shared_ptr<tcp::socket> socket=make_shared<tcp::socket>(*m_io);
-    m_acceptor->async_accept(*socket, bind(&NetworkServer::accept, this, socket));
+    else{
+        cout<<"handle_wait_acceptor: "<<ec.message()<<endl;
+    }
+}
+
+shared_ptr<tcp::acceptor> NetworkServer::acceptor() const
+{
+    return m_acceptor;
+}
+
+void NetworkServer::setAcceptor(const shared_ptr<tcp::acceptor> &acceptor)
+{
+    m_acceptor = acceptor;
 }
