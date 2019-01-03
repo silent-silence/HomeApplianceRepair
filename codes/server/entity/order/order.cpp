@@ -5,8 +5,8 @@
 
 using std::make_shared;				using std::runtime_error;
 
-Order::Order(AddressInformation address, std::string detail, unsigned long int id)
-	: m_address{address}, m_detail{detail}, m_id{id}
+Order::Order(std::weak_ptr<CustomerAccount> commiter, AddressInformation address, std::string detail, unsigned long int id)
+	: m_address{address}, m_detail{std::move(detail)}, m_id{id}, m_committer{std::move(commiter)}
 {}
 
 void Order::orderInitState(OrderPriceRange range)
@@ -18,7 +18,7 @@ void Order::orderInitState(OrderPriceRange range)
 
 void Order::receivedBy(std::weak_ptr<MerchantAccount> receiver)
 {
-	m_currentState->receivedBy(receiver);
+	m_currentState->receivedBy(std::move(receiver));
 }
 
 void Order::startRepair()
@@ -89,7 +89,12 @@ unsigned long int Order::id() const
 	return m_id;
 }
 
+bool Order::isNotReceived() const
+{
+	return static_cast<bool>(m_acceptor.lock());
+}
+
 void Order::setState(std::shared_ptr<OrderState> state)
 {
-	m_currentState = state;
+	m_currentState = std::move(state);
 }

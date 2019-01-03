@@ -5,6 +5,7 @@
 #include <tuple>
 #include <chrono>
 #include <memory>
+#include <vector>
 
 class AddressInformation;
 class OrderStateParameters;
@@ -29,6 +30,15 @@ public:
 		queryOrderStateByOrderIdAndStateId(unsigned long orderId, unsigned long stateId);
 	std::tuple<std::shared_ptr<OrderStateAbstractFactory>, OrderStateParameters>
 		queryOrderStateByOrderIdAndLastStateId(unsigned long orderId, unsigned long lastState);
+
+	/* in std::tuple<unsigned long, std::string, std::string, std::string>
+	 * 0 unsigned long for user id
+	 * 1 std::string for name
+	 * 2 std::string for password
+	 * 3 std::string for email
+	 */
+	std::tuple<unsigned long, std::string, std::string, std::string> checkPasswordAndGetUserInfo(std::string email, std::string password);
+	std::vector<std::tuple<>> queryUserAddressByUserId(unsigned long userId);
 
 private:
 	DatabaseConnection();

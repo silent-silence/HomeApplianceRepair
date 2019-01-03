@@ -20,6 +20,7 @@ OrderUnreceivedState::OrderUnreceivedState(std::weak_ptr<Order> order, OrderPric
 void OrderUnreceivedState::receivedBy(std::weak_ptr<MerchantAccount> receiver)
 {
 	m_order.lock()->m_unreceivedState = shared_from_this();
+	m_order.lock()->m_acceptor = receiver;
 	m_order.lock()->setState(make_shared<OrderReceivedState>(m_order, weak_from_this(), receiver));
 }
 

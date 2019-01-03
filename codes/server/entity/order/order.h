@@ -10,6 +10,7 @@
 
 class OrderState;
 class MerchantAccount;
+class CustomerAccount;
 class Evaluate;
 
 class Order : public std::enable_shared_from_this<Order> {
@@ -25,7 +26,7 @@ class Order : public std::enable_shared_from_this<Order> {
 	friend class OrderEndRepairStateFactory;
 	friend class OrderFinishedStateFactory;
 public:
-	Order(AddressInformation address, std::string detail, unsigned long int id);
+	Order(std::weak_ptr<CustomerAccount> commiter, AddressInformation address, std::string detail, unsigned long int id);
 
 	void receivedBy(std::weak_ptr<MerchantAccount> receiver);
 	void startRepair();
@@ -41,6 +42,7 @@ public:
 	std::chrono::system_clock::time_point endRepairDate();
 
 	unsigned long int id() const;
+	bool isNotReceived() const;
 
 private:
 	void orderInitState(OrderPriceRange range);
@@ -56,6 +58,9 @@ private:
 	std::string m_detail;
 	unsigned long int m_id;
 	std::shared_ptr<OrderState> m_currentState;
+
+	std::weak_ptr<CustomerAccount> m_committer;
+	std::weak_ptr<MerchantAccount> m_acceptor;
 };
 
 #endif //HAR_ORDER_H

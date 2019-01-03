@@ -103,7 +103,6 @@ std::tuple<std::shared_ptr<OrderStateAbstractFactory>, OrderStateParameters>
 	if(res.empty())
 		errorHappen("Query order state by id result error, ");
 
-	//TODO, same as below
 	OrderStateParameters parameters;
 	double priceLow = toDouble(res[3]);
 	double priceHigh = toDouble(res[4]);
@@ -138,7 +137,6 @@ DatabaseConnection::queryOrderStateByOrderIdAndLastStateId(unsigned long orderId
 	OrderStateParameters parameters;
 	if(!res.empty())
 	{
-		//TODO, if res has the correct number of elements
 		double priceLow = toDouble(res[3]);
 		double priceHigh = toDouble(res[4]);
 		std::chrono::system_clock::time_point date = toTimePoint(res[0]);
@@ -156,6 +154,42 @@ DatabaseConnection::queryOrderStateByOrderIdAndLastStateId(unsigned long orderId
 	}
 
 	return tuple<std::shared_ptr<OrderStateAbstractFactory>, OrderStateParameters>(factory, parameters);
+}
+
+std::tuple<unsigned long, std::string, std::string, std::string> DatabaseConnection::checkPasswordAndGetUserInfo(
+		std::string email, std::string password)
+{
+	ostringstream ostr;
+	ostr << "select * from User where email='" << email << "' and password='" << password << "'";
+	string query = ostr.str();
+	if(mysql_real_query(m_mysqlConnection, query.data(), query.length()))
+		errorHappen("Check password, ");
+
+	QueryResult result = mysql_store_result(m_mysqlConnection);
+	auto res = result.fetch_a_row();
+	unsigned long id;
+	std::string name;
+	std::string UserPassword;
+	std::string UserEmail;
+	if(res.empty())
+	{
+		UserPassword = "";
+		UserEmail = "";
+	}
+	else
+	{
+		id = toUnsignedLong(res[0]);
+		name = res[1];
+		UserPassword = res[2];
+		UserEmail = res[3];
+	}
+	return tuple<unsigned long, std::string, std::string, std::string>(id, name, UserPassword, UserEmail);
+}
+
+std::vector<std::tuple<>> DatabaseConnection::queryUserAddressByUserId(unsigned long userId)
+{
+	//TODO, read from database
+	return std::vector<std::tuple<>>();
 }
 
 unsigned long DatabaseConnection::toUnsignedLong(std::string str)

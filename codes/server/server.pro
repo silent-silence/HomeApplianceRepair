@@ -12,6 +12,7 @@ INCLUDEPATH += /usr/local/mariadb/mariadb-connector-c/include
 SOURCES += \
         main.cpp \
     network/networkserver.cpp \
+    network/networkconnection.cpp \
     entity/addressinformation.cpp \
     entity/customeraccount.cpp \
     entity/merchantaccount.cpp \
@@ -28,10 +29,21 @@ SOURCES += \
     database/databaseconnection.cpp \
     database/queryresult.cpp \
     database/orderfactory.cpp \
-    database/orderstatefactory.cpp
+    database/orderstartrepairstatefactory.cpp \
+    database/orderendrepairstatefactory.cpp \
+    database/orderunreceivedstatefactory.cpp \
+    database/orderfinishedstatefactory.cpp \
+    database/orderreceivedstatefactory.cpp \
+    control/createorder.cpp \
+    control/register.cpp \
+    control/usermanagesystem.cpp \
+    control/accountonlinemanager.cpp \
+    control/ordermanagesystem.cpp \
+    control/trackorder.cpp
 
 HEADERS += \
     network/networkserver.h \
+    network/networkconnection.h \
     entity/addressinformation.h \
     entity/customeraccount.h \
     entity/merchantaccount.h \
@@ -47,7 +59,20 @@ HEADERS += \
     entity/order/orderunreceivedstate.h \
     entity/order/orderreceivedstate.h \
     database/orderfactory.h \
-    database/orderstatefactory.h\
     database/databaseconnection.h \
-    database/orderstateconstructorparameters.h \
-    database/queryresult.h
+    database/queryresult.h \
+    database/orderstartrepairstatefactory.h \
+    database/orderstateabstractfactory.h \
+    database/orderendrepairstatefactory.h \
+    database/orderstateparameters.h \
+    database/orderunreceivedstatefactory.h \
+    database/orderfinishedstatefactory.h \
+    database/userfactory.hpp \
+    database/orderreceivedstatefactory.h \
+    control/accountonlinemanager.h \
+    control/ordermanagesystem.h \
+    control/trackorder.h \
+    control/createorder.h \
+    control/register.h \
+    control/usermanagesystem.h
+

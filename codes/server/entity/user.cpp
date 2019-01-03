@@ -2,10 +2,9 @@
 
 using std::string;
 
-User::User()
-{
-
-}
+User::User(unsigned long id, std::string name, std::string password, std::string email)
+    : m_id{id}, m_name{std::move(name)}, m_passwd{std::move(password)}, m_email{std::move(email)}
+{}
 
 unsigned long User::id() const
 {

@@ -2,29 +2,37 @@
 #define USER_H
 
 #include <string>
+#include <list>
+#include <memory>
 
 typedef int StateFlag;
+
+class AddressInformation;
+class Order;
 
 class User
 {
 public:
-    User();
+    User(unsigned long id, std::string name, std::string password, std::string email);
+
+	void setId(unsigned long id);
+	void setName(const std::string &name);
+	void setPasswd(const std::string &passwd);
+	void setEmail(const std::string &email);
+	void setState(const StateFlag &state);
+
     unsigned long id() const;
-    void setId(unsigned long id);
+	std::string name() const;
+	std::string passwd() const;
+	std::string email() const;
+	StateFlag state() const;
 
-    std::string name() const;
-    void setName(const std::string &name);
+	virtual bool isMyOrder(std::weak_ptr<Order> order) const = 0;
 
-    std::string passwd() const;
-    void setPasswd(const std::string &passwd);
+protected:
+	virtual void loadAddress(std::list<std::shared_ptr<AddressInformation>> address) = 0;
+	virtual void loadOrders(std::list<std::shared_ptr<Order>> orders) = 0;
 
-    std::string email() const;
-    void setEmail(const std::string &email);
-
-    StateFlag state() const;
-    void setState(const StateFlag &state);
-
-private:
     unsigned long int m_id;
     std::string m_name;
     std::string m_passwd;
