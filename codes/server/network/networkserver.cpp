@@ -1,6 +1,5 @@
 #include "networkserver.h"
 #include "networkconnection.h"
-#include "datashunt.h"
 #include <boost/bind.hpp>
 #include <iostream>
 
@@ -17,10 +16,9 @@ using boost::asio::ip::address;
 using boost::system::error_code;
 using boost::asio::placeholders::error;
 
-NetworkServer::NetworkServer(std::shared_ptr<DataShunt> &shunt)
+NetworkServer::NetworkServer()
     :io_service()
 {
-    _dataShunt=shunt;
     setAcceptor(make_shared<tcp::acceptor>(*this, tcp::endpoint(tcp::v4(), PORT)));
 }
 
@@ -37,7 +35,7 @@ void NetworkServer::end()
 
 void NetworkServer::handle_acceptor()
 {
-    auto conn=NetworkConnection::create(*this, _dataShunt);
+    auto conn=NetworkConnection::create(*this);
     acceptor()->async_accept(conn->socket(), bind(&NetworkServer::handle_wait_acceptor, this, error, conn));
 }
 
