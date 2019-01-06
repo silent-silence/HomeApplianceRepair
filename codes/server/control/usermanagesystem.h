@@ -1,20 +1,27 @@
-#ifndef HAR_USERMANAGESYSTEM_H
-#define HAR_USERMANAGESYSTEM_H
+#ifndef USERMANAGESYSTEM_H
+#define USERMANAGESYSTEM_H
 
+#include <string>
 
-class UserManageSystem {
+class UserManageSystem
+{
 public:
-	void onlineState();
-	void requestLogout();
-	void requestChangeAccount();
-	void requestLogin();
-	void confirmState();
-	void requestRegister();
-	void confirmCheckAccount();
-	void confirmRegister();
-
+    static UserManageSystem &Init();
+    std::string shunt_message(const std::string &data);
 private:
+    UserManageSystem();
+
+    std::string online_state();
+    std::string confirm_state();
+
+    std::string request_login();
+    std::string request_logout();
+
+    std::string request_register();
+    std::string confirm_register();
+
+    std::string confirm_checkAccount();
+    std::string request_changeAccount();
 };
 
-
-#endif //HAR_USERMANAGESYSTEM_H
+#endif // USERMANAGESYSTEM_H

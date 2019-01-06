@@ -65,7 +65,7 @@ void NetworkConnection::handle_wait_read(const error_code &ec)
 void NetworkConnection::handle_write(const error_code &ec, const string &data)
 {
     if(!ec){
-        string result=DataShunt::create().shunt_message(shared_from_this(), data);
+        string result=DataShunt::Init().shunt_message(shared_from_this(), data);
         result+="\r\n";
         m_socket.async_write_some(buffer(result.data(), result.size()), bind(&NetworkConnection::print, shared_from_this(), result));
     }
@@ -85,7 +85,7 @@ void NetworkConnection::print(const std::string &data) const
     cout<<"print: "<<data<<endl;
 }
 
-std::shared_ptr<NetworkConnection> NetworkConnection::create(io_context &io)
+shared_ptr<NetworkConnection> NetworkConnection::Init(io_context &io)
 {
     return shared_ptr<NetworkConnection>(new NetworkConnection(io));
 }

@@ -11,7 +11,7 @@
 class NetworkConnection : public std::enable_shared_from_this<NetworkConnection>
 {
 public:
-    static std::shared_ptr<NetworkConnection> create(boost::asio::io_context &io);
+    static std::shared_ptr<NetworkConnection> Init(boost::asio::io_context &io);
     void start();
     void end();
 

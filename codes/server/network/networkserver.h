@@ -16,9 +16,6 @@ public:
     void start();
     void end();
 
-    std::shared_ptr<boost::asio::ip::tcp::acceptor> acceptor() const;
-    void setAcceptor(const std::shared_ptr<boost::asio::ip::tcp::acceptor> &acceptor);
-
 private:
     void handle_acceptor();
     void handle_wait_acceptor(const boost::system::error_code &ec, const std::shared_ptr<NetworkConnection> &conn);

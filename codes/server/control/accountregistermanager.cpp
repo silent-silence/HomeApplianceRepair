@@ -1,15 +1,15 @@
-#include "usermanagesystem.h"
+#include "accountregistermanager.h"
 #include "datashunt.h"
 
 using std::string;
 
-UserManageSystem &UserManageSystem::Init()
+AccountRegisterManager &AccountRegisterManager::Init()
 {
-    static UserManageSystem user_manage_system;
-    return user_manage_system;
+    static AccountRegisterManager account_register_manager;
+    return account_register_manager;
 }
 
-std::string UserManageSystem::shunt_message(const std::string &data)
+string AccountRegisterManager::shunt_message(const string &data)
 {
     string str;
     int type=atoi(DataShunt::Init().json_get(DataShunt::JsonData().TYPE, data).data());
@@ -29,7 +29,7 @@ std::string UserManageSystem::shunt_message(const std::string &data)
     return str;
 }
 
-UserManageSystem::UserManageSystem()
+AccountRegisterManager::AccountRegisterManager()
 {
 
 }

@@ -19,7 +19,7 @@ using boost::asio::placeholders::error;
 NetworkServer::NetworkServer()
     :io_service()
 {
-    setAcceptor(make_shared<tcp::acceptor>(*this, tcp::endpoint(tcp::v4(), PORT)));
+    m_acceptor=make_shared<tcp::acceptor>(*this, tcp::endpoint(tcp::v4(), PORT));
 }
 
 void NetworkServer::start()
@@ -35,8 +35,8 @@ void NetworkServer::end()
 
 void NetworkServer::handle_acceptor()
 {
-    auto conn=NetworkConnection::create(*this);
-    acceptor()->async_accept(conn->socket(), bind(&NetworkServer::handle_wait_acceptor, this, error, conn));
+    auto conn=NetworkConnection::Init(*this);
+    m_acceptor->async_accept(conn->socket(), bind(&NetworkServer::handle_wait_acceptor, this, error, conn));
 }
 
 void NetworkServer::handle_wait_acceptor(const error_code &ec, const shared_ptr<NetworkConnection> &conn)
@@ -48,14 +48,4 @@ void NetworkServer::handle_wait_acceptor(const error_code &ec, const shared_ptr<
     else{
         cout<<"handle_wait_acceptor: "<<ec.message()<<endl;
     }
-}
-
-shared_ptr<tcp::acceptor> NetworkServer::acceptor() const
-{
-    return m_acceptor;
-}
-
-void NetworkServer::setAcceptor(const shared_ptr<tcp::acceptor> &acceptor)
-{
-    m_acceptor = acceptor;
 }

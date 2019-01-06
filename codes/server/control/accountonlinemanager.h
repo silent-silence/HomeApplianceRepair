@@ -1,13 +1,18 @@
-#ifndef HAR_ACCOUNTONLINEMANAGER_H
-#define HAR_ACCOUNTONLINEMANAGER_H
+#ifndef ACCOUNTONLINEMANAGER_H
+#define ACCOUNTONLINEMANAGER_H
 
+#include <string>
 
-class AccountOnlineManager {
+class AccountOnlineManager
+{
 public:
-	void requestLogin();
-	void requestLogout();
+    static AccountOnlineManager &Init();
+    std::string shunt_message(const std::string &data);
 private:
+    AccountOnlineManager();
+
+    std::string request_login();
+    std::string request_logout();
 };
 
-
-#endif //HAR_ACCOUNTONLINEMANAGER_H
+#endif // ACCOUNTONLINEMANAGER_H
