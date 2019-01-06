@@ -1,6 +1,6 @@
 #include "databaseconnection.h"
 #include "queryresult.h"
-#include "../entity/addressinformation.h"
+#include "entity/user/addressinformation.h"
 #include "orderstateparameters.h"
 #include "orderunreceivedstatefactory.h"
 #include "orderreceivedstatefactory.h"

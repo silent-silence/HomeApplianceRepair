@@ -1,6 +1,6 @@
 #include "orderfinishedstatefactory.h"
-#include "../entity/order/order.h"
-#include "../entity/order/orderfinishedstate.h"
+#include "entity/order/order.h"
+#include "entity/order/orderfinishedstate.h"
 
 using std::make_shared;
 

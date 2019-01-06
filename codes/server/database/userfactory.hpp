@@ -6,7 +6,7 @@
 #include <memory>
 #include <tuple>
 #include <list>
-#include "../entity/addressinformation.h"
+#include "entity/user/addressinformation.h"
 
 class User;
 

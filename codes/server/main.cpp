@@ -1,12 +1,12 @@
 #include <iostream>
 #include <memory>
 #include "entity/order/order.h"
-#include "entity/addressinformation.h"
-#include "entity/merchantaccount.h"
+#include "entity/user/addressinformation.h"
+#include "entity/user/merchantaccount.h"
 #include "entity/order/evaluate.h"
 #include "database/orderfactory.h"
 #include "database/userfactory.hpp"
-#include "entity/customeraccount.h"
+#include "entity/user/customeraccount.h"
 
 using std::shared_ptr;			using std::make_shared;
 using std::cout;				using std::runtime_error;

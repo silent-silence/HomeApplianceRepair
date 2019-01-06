@@ -5,8 +5,8 @@
 #include "orderfactory.h"
 #include "orderstateabstractfactory.h"
 #include "databaseconnection.h"
-#include "../entity/order/order.h"
-#include "../entity/order/orderstate.h"
+#include "entity/order/order.h"
+#include "entity/order/orderstate.h"
 #include <tuple>
 
 using std::make_shared;			using std::get;

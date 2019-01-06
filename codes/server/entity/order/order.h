@@ -5,7 +5,7 @@
 #include <memory>
 #include <queue>
 #include <chrono>
-#include "../addressinformation.h"
+#include "entity/user/addressinformation.h"
 #include "orderpricerange.h"
 
 class OrderState;

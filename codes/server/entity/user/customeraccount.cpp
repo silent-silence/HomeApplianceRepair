@@ -1,9 +1,9 @@
 #include "customeraccount.h"
 #include "addressinformation.h"
-#include "order/orderpricerange.h"
-#include "../database/orderfactory.h"
-#include "order/order.h"
-#include "order/evaluate.h"
+#include "entity/order/orderpricerange.h"
+#include "database/orderfactory.h"
+#include "entity/order/order.h"
+#include "entity/order/evaluate.h"
 #include <algorithm>
 
 using std::make_shared;

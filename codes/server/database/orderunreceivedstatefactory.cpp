@@ -1,7 +1,7 @@
 
 #include "orderunreceivedstatefactory.h"
-#include "../entity/order/order.h"
-#include "../entity/order/orderunreceivedstate.h"
+#include "entity/order/order.h"
+#include "entity/order/orderunreceivedstate.h"
 
 using std::make_shared;
 

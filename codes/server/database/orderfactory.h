@@ -3,8 +3,8 @@
 #define HAR_ORDERFACTORY_H
 
 #include <memory>
-#include "../entity/addressinformation.h"
-#include "../entity/order/orderpricerange.h"
+#include "entity/user/addressinformation.h"
+#include "entity/order/orderpricerange.h"
 
 class Order;
 class OrderStateAbstractFactory;

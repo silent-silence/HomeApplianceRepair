@@ -1,6 +1,6 @@
 #include "orderendrepairstatefactory.h"
-#include "../entity/order/order.h"
-#include "../entity/order/orderendrepairstate.h"
+#include "entity/order/order.h"
+#include "entity/order/orderendrepairstate.h"
 
 using std::make_shared;
 

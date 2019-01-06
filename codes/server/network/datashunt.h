@@ -14,16 +14,30 @@ struct JSONDATA{
 };
 
 struct JSONORDER{
-    std::string Id="id";
-    std::string Date="date";
+    std::string ID="id";
+    std::string DATE="date";
+    std::string PRICERANGE="priceRange";
+    std::string TRANSACTION="tannsaction";
+    std::string EVALUATE="evaluate";
+    std::string DETAILS="details";
+    std::string ADDRESS="address";
+    int StartRepair=0;
+    int EndRepair=1;
+    int ReceiveOrder=2;
+    int UploadOrder=3;
+    int PayOrder=4;
+    int AcceptOrder=5;
 };
 
 struct JSONUSER{
-    std::string Id="id";
+    std::string ID="id";
+    std::string PASSWD="password";
 };
 
 struct JSONMESSAGE{
     std::string Id="id";
+    std::string FROMUSER="fromUser";
+    std::string TOUSER="toUser";
 };
 
 class NetworkConnection;

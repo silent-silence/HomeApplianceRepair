@@ -1,7 +1,7 @@
 #include "merchantaccount.h"
 #include "addressinformation.h"
 #include "merchantservertype.h"
-#include "order/order.h"
+#include "entity/order/order.h"
 #include <algorithm>
 
 MerchantAccount::MerchantAccount(unsigned long id, std::string name, std::string password, std::string email)

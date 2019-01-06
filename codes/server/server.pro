@@ -11,68 +11,71 @@ INCLUDEPATH += /usr/local/mariadb/mariadb-connector-c/include
 
 SOURCES += \
         main.cpp \
-    network/networkserver.cpp \
+    network/datashunt.cpp \
     network/networkconnection.cpp \
-    entity/addressinformation.cpp \
-    entity/customeraccount.cpp \
-    entity/merchantaccount.cpp \
-    entity/merchantservertype.cpp \
-    entity/user.cpp \
+    network/networkserver.cpp \
+    entity/user/addressinformation.cpp \
+    entity/user/customeraccount.cpp \
+    entity/user/merchantaccount.cpp \
+    entity/user/merchantservertype.cpp \
+    entity/user/user.cpp \
     entity/order/evaluate.cpp \
-    entity/order/orderstartrepairstate.cpp \
     entity/order/order.cpp \
-    entity/order/orderpricerange.cpp \
     entity/order/orderendrepairstate.cpp \
-    entity/order/orderunreceivedstate.cpp \
-    entity/order/orderreceivedstate.cpp \
     entity/order/orderfinishedstate.cpp \
+    entity/order/orderpricerange.cpp \
+    entity/order/orderreceivedstate.cpp \
+    entity/order/orderstartrepairstate.cpp \
+    entity/order/orderunreceivedstate.cpp \
     database/databaseconnection.cpp \
-    database/queryresult.cpp \
-    database/orderfactory.cpp \
-    database/orderstartrepairstatefactory.cpp \
     database/orderendrepairstatefactory.cpp \
-    database/orderunreceivedstatefactory.cpp \
+    database/orderfactory.cpp \
     database/orderfinishedstatefactory.cpp \
     database/orderreceivedstatefactory.cpp \
-    control/createorder.cpp \
-    control/register.cpp \
-    control/usermanagesystem.cpp \
-    control/accountonlinemanager.cpp \
-    control/ordermanagesystem.cpp \
-    control/trackorder.cpp
+    database/orderstartrepairstatefactory.cpp \
+    database/orderunreceivedstatefactory.cpp \
+    database/queryresult.cpp \
+    control/order/createorder.cpp \
+    control/order/ordermanagesystem.cpp \
+    control/order/trackorder.cpp \
+    control/user/accountonlinemanager.cpp \
+    control/user/accountregistermanager.cpp \
+    control/user/register.cpp \
+    control/user/usermanagesystem.cpp
 
 HEADERS += \
-    network/networkserver.h \
+    network/datashunt.h \
     network/networkconnection.h \
-    entity/addressinformation.h \
-    entity/customeraccount.h \
-    entity/merchantaccount.h \
-    entity/merchantservertype.h \
-    entity/user.h \
-    entity/order/orderfinishedstate.h \
+    network/networkserver.h \
+    entity/user/addressinformation.h \
+    entity/user/customeraccount.h \
+    entity/user/merchantaccount.h \
+    entity/user/merchantservertype.h \
+    entity/user/user.h \
     entity/order/evaluate.h \
     entity/order/order.h \
+    entity/order/orderendrepairstate.h \
+    entity/order/orderfinishedstate.h \
+    entity/order/orderpricerange.h \
+    entity/order/orderreceivedstate.h \
     entity/order/orderstartrepairstate.h \
     entity/order/orderstate.h \
-    entity/order/orderpricerange.h \
-    entity/order/orderendrepairstate.h \
     entity/order/orderunreceivedstate.h \
-    entity/order/orderreceivedstate.h \
-    database/orderfactory.h \
     database/databaseconnection.h \
-    database/queryresult.h \
+    database/orderendrepairstatefactory.h \
+    database/orderfactory.h \
+    database/orderfinishedstatefactory.h \
+    database/orderreceivedstatefactory.h \
     database/orderstartrepairstatefactory.h \
     database/orderstateabstractfactory.h \
-    database/orderendrepairstatefactory.h \
     database/orderstateparameters.h \
     database/orderunreceivedstatefactory.h \
-    database/orderfinishedstatefactory.h \
+    database/queryresult.h \
     database/userfactory.hpp \
-    database/orderreceivedstatefactory.h \
-    control/accountonlinemanager.h \
-    control/ordermanagesystem.h \
-    control/trackorder.h \
-    control/createorder.h \
-    control/register.h \
-    control/usermanagesystem.h
-
+    control/order/createorder.h \
+    control/order/ordermanagesystem.h \
+    control/order/trackorder.h \
+    control/user/accountonlinemanager.h \
+    control/user/accountregistermanager.h \
+    control/user/register.h \
+    control/user/usermanagesystem.h
