@@ -1,0 +1,41 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>base/InputBox.qml</file>
+        <file>HomePage.qml</file>
+        <file>base/OrderBar.qml</file>
+        <file>base/MessageBox.qml</file>
+        <file>base/Title.qml</file>
+        <file>base/BaseLabel.qml</file>
+        <file>img/bg.png</file>
+        <file>img/home.png</file>
+        <file>img/news.png</file>
+        <file>img/orderList.png</file>
+        <file>img/person.png</file>
+        <file>base/Icon.qml</file>
+        <file>base/SearchBar.qml</file>
+        <file>img/search.png</file>
+        <file>base/OrderMessageBox.qml</file>
+        <file>Person.qml</file>
+        <file>base/RoundButton.qml</file>
+        <file>img/allOrder.png</file>
+        <file>img/done.png</file>
+        <file>img/onGoing.png</file>
+        <file>img/onreceive.png</file>
+        <file>img/onTODoor.png</file>
+        <file>img/comment.png</file>
+        <file>img/setting.png</file>
+        <file>img/editorMessage.png</file>
+        <file>base/ClickBox.qml</file>
+        <file>img/jiantou.png</file>
+        <file>homePage/CreatOrder.qml</file>
+        <file>homePage/EditorOrder.qml</file>
+        <file>own/AddAddress.qml</file>
+        <file>own/ChangeMessage.qml</file>
+        <file>own/Login.qml</file>
+        <file>Register.qml</file>
+        <file>News.qml</file>
+        <file>Home.qml</file>
+        <file>base/OrderBox.qml</file>
+    </qresource>
+</RCC>
